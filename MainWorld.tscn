@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq5mpfrfo5bnu"]
+
+[ext_resource type="Script" path="res://Level.gd" id="1_r6uge"]
+[ext_resource type="PackedScene" uid="uid://ce15vy7c6unkh" path="res://Player/PlayerCharacter.tscn" id="2_0lmvs"]
+[ext_resource type="PackedScene" uid="uid://bnqwr01lowp4o" path="res://Pickups/Gun/Model/LowPolyGun.scn" id="3_uekmc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bawr6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Level" type="Node3D" parent="."]
+script = ExtResource("1_r6uge")
+
+[node name="MeshInstance3D" type="CSGMesh3D" parent="Level"]
+transform = Transform3D(34.0485, 0, 0, 0, 2, 0, 0, 0, 31.2232, 1.10253, -0.0167797, -1.29646)
+use_collision = true
+mesh = SubResource("BoxMesh_bawr6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
+transform = Transform3D(-0.418438, 0.908245, -5.50762e-09, 0.725967, 0.33446, 0.600923, 0.545785, 0.251449, -0.799307, 0, 5.50168, 0)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="PlayerCharacter" parent="Level" instance=ExtResource("2_0lmvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989765, 0)
+
+[node name="LowPolyGun" parent="Level" instance=ExtResource("3_uekmc")]
+transform = Transform3D(-0.0654818, 3.99946, 0, -3.99946, -0.0654818, 0, 0, 0, 4, -6.20867, 1.04242, 1.69894)
