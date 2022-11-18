@@ -1,6 +1,7 @@
 extends Node3D
 
-signal gun_is_in_pickup_rnage
+signal gun_is_in_pickup_range
+signal gun_out_of_pickup_range
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,4 +16,9 @@ func _process(delta):
 
 
 func _on_area_3d_area_entered(area):
-	emit_signal("gun_is_in_pickup_rnage")
+	emit_signal("gun_is_in_pickup_range")
+
+
+
+func _on_area_3d_area_exited(area):
+	emit_signal("gun_out_of_pickup_range")

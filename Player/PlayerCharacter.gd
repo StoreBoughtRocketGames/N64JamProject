@@ -32,28 +32,41 @@ var roll_magnitude = 20
 
 var sprint_toggle = true
 var sprinting = false
-var is_gun_in_range = false
+var is_item_in_range = false
 var run_blendspace = "parameters/run/blend_position"
 @onready var animovement = $AnimationTree
 @onready var animachine = $AnimationPlayer.get("paramaters/playback")
 @onready var bodyNode = $metarig/Skeleton3D
 @onready var lowPolyGunNode = get_node("../LowPolyGun")
 @onready var attachedLowPolyGunNode = get_node("metarig/Skeleton3D/BoneAttachment3D/LowPolyGun")
+@onready var boneAttachment = get_node("metarig/Skeleton3D/BoneAttachment3D")
 @onready var globals = get_node("/root/Globals")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	lowPolyGunNode.connect("gun_is_in_pickup_rnage", pick_up_gun)
-
+	lowPolyGunNode.connect("gun_is_in_pickup_range", gun_in_pickup_range)
+	lowPolyGunNode.connect("gun_out_of_pickup_range", gun_out_of_pickup_range)
+	
 func _input(event):
 	if event is InputEvent:
-		if (Input.is_action_pressed("pickup") and is_gun_in_range):
-			attachedLowPolyGunNode.set_visible(true)
+		if (Input.is_action_pressed("pickup") and is_item_in_range):
+			#attachedLowPolyGunNode.set_visible(true)
+			pick_up_item()
 			print('Yee haaa')
 			
-			
-func pick_up_gun():
-	is_gun_in_range = true
+func pick_up_item():
+	get_parent().remove_child(lowPolyGunNode)
+	boneAttachment.add_child(lowPolyGunNode)
+	lowPolyGunNode.position = Vector3(-0.014,0.366,-0.108)
+	lowPolyGunNode.rotation = Vector3(deg_to_rad(-78.8), deg_to_rad(-12.5), deg_to_rad(173.6))
+
+
+func gun_in_pickup_range():
+	is_item_in_range = true
+	print('coming here')
+
+func gun_out_of_pickup_range():
+	is_item_in_range = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

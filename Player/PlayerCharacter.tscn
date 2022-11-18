@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ce15vy7c6unkh"]
+[gd_scene load_steps=60 format=3 uid="uid://ce15vy7c6unkh"]
 
 [ext_resource type="Script" path="res://Player/PlayerCharacter.gd" id="1_puwqi"]
 [ext_resource type="Texture2D" uid="uid://de0kw8fe1vc76" path="res://Player/PlayerModel/FaceDrawn_png.png" id="2_qytma"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://bmb4cdxhpa4sf" path="res://Player/PlayerModel/metal-plate-black-blurred_jpg.jpg" id="9_nk33j"]
 [ext_resource type="Script" path="res://Player/AnimationTreeStateMachine.gd" id="10_2w5kt"]
 [ext_resource type="Animation" uid="uid://dqwvx03dikjss" path="res://Player/Animations/Idle.res" id="10_83hfs"]
-[ext_resource type="PackedScene" uid="uid://bnqwr01lowp4o" path="res://Pickups/Gun/Model/LowPolyGun.scn" id="10_eyfdy"]
 [ext_resource type="Animation" uid="uid://xu16t84lx2jc" path="res://Player/Animations/IdleAim.res" id="11_038pp"]
 [ext_resource type="Script" path="res://Player/Camera.gd" id="11_ont40"]
 [ext_resource type="Animation" uid="uid://bslyxkxxpc7gc" path="res://Player/Animations/IdleShoot.res" id="12_3581f"]
@@ -430,7 +429,7 @@ filters = ["metarig/Skeleton3D:breast.L", "metarig/Skeleton3D:breast.R", "metari
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5jlbg"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oacwb"]
-graph_offset = Vector2(-109, 37.2333)
+graph_offset = Vector2(-169.531, 95.164)
 nodes/Blend2AimShoot/node = SubResource("AnimationNodeBlend2_y0ycj")
 nodes/Blend2AimShoot/position = Vector2(900, 300)
 nodes/BlendSpace1DAim/node = SubResource("AnimationNodeBlendSpace1D_trayf")
@@ -689,10 +688,6 @@ transform = Transform3D(-0.974005, -0.153899, -0.166219, 0.153875, -0.988003, 0.
 bone_name = "hand.R"
 bone_idx = 14
 
-[node name="LowPolyGun" parent="metarig/Skeleton3D/BoneAttachment3D" instance=ExtResource("10_eyfdy")]
-transform = Transform3D(-2.83941, -0.960105, -0.126216, 0.0652856, -0.579927, 2.94269, -0.966161, 2.78242, 0.569777, -0.0139925, 0.365992, -0.108066)
-visible = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_default_blend_time = 0.15
 libraries = {
@@ -707,7 +702,7 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_71hv7")
 parameters/BlendTreeIdleRun/Blend2AimShoot/blend_amount = 0.0
 parameters/BlendTreeIdleRun/BlendSpace1DAim/blend_position = 0.0
 parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position = 0.0
-parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position = 1.0
+parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position = 0.00281692
 parameters/BlendTreeIdleRun/BlendUnarmedToArmed/blend_amount = 0.0
 parameters/BlendTreeIdleRun/TimeScale/scale = 1.5
 "parameters/BlendTreeIdleRun/TimeScale 2/scale" = 1.5
@@ -722,7 +717,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.39427, 0)
 script = ExtResource("11_ont40")
 
 [node name="h" type="Node3D" parent="CameraRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="v" type="Node3D" parent="CameraRoot/h"]
 

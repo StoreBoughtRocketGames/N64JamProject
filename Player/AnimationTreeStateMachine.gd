@@ -85,7 +85,7 @@ func set_animation(state):
 	# Set player speed no matter what
 	set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",player_blend_speed)
 	set("parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position",player_blend_speed)
-	set("parameters/BlendTreeIdleRun/Blend2AimShoot/blend_amount",player_blend_speed)
+	
 	if (Input.is_action_pressed("backward") and Input.is_action_pressed("aim")):
 		set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",-1)
 		print('backward')
@@ -98,6 +98,7 @@ func set_animation(state):
 			# Set IdleRun BlendSpace1D to use running backward animation
 			#set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",-1)
 			# Set aim idle, or aim run blend animation
+			set("parameters/BlendTreeIdleRun/Blend2AimShoot/blend_amount",0)
 			set("parameters/BlendTreeIdleRun/BlendSpace1DAim/blend_position",player_blend_speed)
 			# Set shoot blend animation between idle shoot and run shoot in preparation for shoot
 			# transition
@@ -107,6 +108,8 @@ func set_animation(state):
 			#print('Doing aiming stuff')
 		States.SHOOT:
 			#print('Coming into shoot')
+			set("parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position",player_blend_speed)
+			set("parameters/BlendTreeIdleRun/Blend2AimShoot/blend_amount",1)
 			set("parameters/BlendTreeIdleRun/BlendUnarmedToArmed/blend_amount",1)
 	#print('state: ',state)
 	previous_state = state
