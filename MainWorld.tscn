@@ -1,28 +1,137 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq5mpfrfo5bnu"]
+[gd_scene load_steps=17 format=3 uid="uid://b40t5qb2t677t"]
 
 [ext_resource type="Script" path="res://Level.gd" id="1_r6uge"]
 [ext_resource type="PackedScene" uid="uid://ce15vy7c6unkh" path="res://Player/PlayerCharacter.tscn" id="2_0lmvs"]
 [ext_resource type="PackedScene" uid="uid://bnqwr01lowp4o" path="res://Pickups/Gun/Model/LowPolyGun.scn" id="3_uekmc"]
+[ext_resource type="Shader" path="res://Shaders/gaussianBlur.gdshader" id="4_11lx2"]
+[ext_resource type="PackedScene" uid="uid://dy2ho6dautqhu" path="res://Models/AntPerson/AntPerson.scn" id="5_3gv3v"]
+[ext_resource type="Shader" path="res://Shaders/Dither.gdshader" id="5_u5yvp"]
+[ext_resource type="Texture2D" uid="uid://dxu8ebc6lw7xv" path="res://Shaders/psxdither.png" id="6_14hje"]
+[ext_resource type="PackedScene" uid="uid://dfkmnja0s4y6r" path="res://Models/Terrain/CaveSystem.scn" id="6_68huh"]
+[ext_resource type="Texture2D" uid="uid://bp4mkyu6qu5j1" path="res://Models/Terrain/starmap_2020_4k_print.jpg" id="6_ckb6m"]
+[ext_resource type="PackedScene" uid="uid://ble8b2iv3ubjs" path="res://Models/AntPerson/AntPerson2.glb" id="6_lqlfj"]
+[ext_resource type="PackedScene" uid="uid://yn4wf7sdptls" path="res://Models/Terrain/BlueWinterTreeBallLeaves/Tree.scn" id="7_sxwww"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_bawr6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2k1v"]
+shader = ExtResource("4_11lx2")
+shader_parameter/enabled = true
+shader_parameter/h = 1.0
+shader_parameter/v = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd66e"]
+shader = ExtResource("5_u5yvp")
+shader_parameter/col_depth = 36.0
+shader_parameter/dither_banding = false
+shader_parameter/dither_tex = ExtResource("6_14hje")
+shader_parameter/enabled = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5rshk"]
+panorama = ExtResource("6_ckb6m")
+
+[sub_resource type="Sky" id="Sky_m8t0q"]
+sky_material = SubResource("PanoramaSkyMaterial_5rshk")
+
+[sub_resource type="Environment" id="Environment_pu1lp"]
+background_mode = 2
+background_color = Color(0.670588, 0.768627, 0.972549, 1)
+sky = SubResource("Sky_m8t0q")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
+reflected_light_source = 2
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.9
+glow_bloom = 0.5
+fog_light_color = Color(0.145098, 0.164706, 0.215686, 1)
+fog_light_energy = 0.2
+fog_sun_scatter = 0.05
+fog_aerial_perspective = 0.5
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.34902, 0.721569, 1, 1)
+volumetric_fog_emission = Color(0.27451, 0.27451, 0.27451, 1)
+volumetric_fog_gi_inject = 0.5
+volumetric_fog_detail_spread = 5.65685
+volumetric_fog_sky_affect = 0.25
 
 [node name="Node3D" type="Node3D"]
-
-[node name="Level" type="Node3D" parent="."]
 script = ExtResource("1_r6uge")
 
-[node name="MeshInstance3D" type="CSGMesh3D" parent="Level"]
-transform = Transform3D(34.0485, 0, 0, 0, 2, 0, 0, 0, 31.2232, 1.10253, -0.0167797, -1.29646)
-use_collision = true
-mesh = SubResource("BoxMesh_bawr6")
+[node name="CaveSystem" parent="." instance=ExtResource("6_68huh")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
-transform = Transform3D(-0.418438, 0.908245, -5.50762e-09, 0.725967, 0.33446, 0.600923, 0.545785, 0.251449, -0.799307, 0, 5.50168, 0)
+[node name="AntPerson" parent="." instance=ExtResource("5_3gv3v")]
+transform = Transform3D(-1.69275, 0, -1.48226, 0, 2.25, 0, 1.48226, 0, -1.69275, 50.0976, -14.2304, 96.6539)
+
+[node name="AntPerson2" parent="." instance=ExtResource("6_lqlfj")]
+transform = Transform3D(-1.62309, 0, 1.16858, 0, 2, 0, -1.16858, 0, -1.62309, 57.8647, -14.2304, 96.6539)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="HBlur" type="SubViewportContainer" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_k2k1v")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/HBlur"]
+handle_input_locally = false
+size = Vector2i(576, 324)
+render_target_update_mode = 4
+
+[node name="DitherBand" type="SubViewportContainer" parent="CanvasLayer/HBlur/SubViewport"]
+material = SubResource("ShaderMaterial_vd66e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/HBlur/SubViewport/DitherBand"]
+handle_input_locally = false
+msaa_3d = 2
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Level" type="Node3D" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport"]
+script = ExtResource("1_r6uge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level"]
+transform = Transform3D(-0.418438, 0.908245, 8.39265e-07, -0.610955, -0.281474, 0.739937, 0.672044, 0.309617, 0.672677, 0, -15.3699, -2.18834)
 light_energy = 0.5
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_bake_mode = 1
 shadow_enabled = true
 
-[node name="PlayerCharacter" parent="Level" instance=ExtResource("2_0lmvs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989765, 0)
+[node name="PlayerCharacter" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("2_0lmvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.3864, -12.8387, 82.9713)
+floor_block_on_wall = false
 
-[node name="LowPolyGun" parent="Level" instance=ExtResource("3_uekmc")]
+[node name="LowPolyGun" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("3_uekmc")]
 transform = Transform3D(-0.0654818, 3.99946, 0, -3.99946, -0.0654818, 0, 0, 0, 4, -6.20867, 1.04242, 1.69894)
+
+[node name="Floor" type="Node3D" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.7987, 0)
+
+[node name="Walls" type="Node3D" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level"]
+environment = SubResource("Environment_pu1lp")
+
+[node name="Tree5" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("7_sxwww")]
+transform = Transform3D(-0.979659, 0, 0.200668, 0, 1, 0, -0.200668, 0, -0.979659, 135.121, -15.064, 166.306)
+
+[node name="Tree4" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("7_sxwww")]
+transform = Transform3D(-0.964645, 0, 0.263553, 0, 1, 0, -0.263553, 0, -0.964645, 74.0637, -15.0641, 103.008)
+
+[node name="Tree6" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("7_sxwww")]
+transform = Transform3D(-0.261751, 0, 0.965135, 0, 1, 0, -0.965135, 0, -0.261751, 116.061, -15.064, 102.718)
+
+[node name="Tree7" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("7_sxwww")]
+transform = Transform3D(-0.386293, 0, -0.922376, 0, 1, 0, 0.922376, 0, -0.386293, 183.942, -15.064, 75.313)

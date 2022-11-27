@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://p611m26hj0rt"]
+
+[resource]
+resource_name = "Visor"
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.388235, 0.501961, 0.498039, 0.917647)
+roughness = 0.5

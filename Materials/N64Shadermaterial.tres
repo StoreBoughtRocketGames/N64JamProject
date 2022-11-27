@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bnsxlbgspc3ar"]
+
+[ext_resource type="Shader" path="res://Shaders/BilinearFilter.gdshader" id="1_fcpk2"]
+[ext_resource type="Texture2D" uid="uid://de0kw8fe1vc76" path="res://Player/PlayerModel/FaceDrawn_png.png" id="2_lbisy"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_fcpk2")
+shader_parameter/albedoTex = ExtResource("2_lbisy")
+shader_parameter/modulate_color = Vector4(1, 1, 1, 1)
+shader_parameter/uv_offset = null
+shader_parameter/uv_pan_velocity = null
+shader_parameter/uv_scale = null

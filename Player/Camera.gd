@@ -8,7 +8,7 @@ var h_sensitivity = 0.1
 var h_sensitivity_aim = 0.04
 var v_sensitivity = 0.1
 var v_sensitivity_aim = 0.04
-var h_acceleration = .4
+var h_acceleration = .3
 var v_acceleration = .4
 var	DecelerationFactor = 4
 

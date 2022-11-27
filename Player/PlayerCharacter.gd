@@ -15,17 +15,17 @@ var strafe = Vector3.ZERO
 var aim_turn = 0
 
 var vertical_velocity = 0
-var gravity = 28
+var gravity = 9.81
 var weight_on_ground = 0
 
 
 var movement_speed = 0
 var walk_speed = 2.2
 var crouch_walk_speed = 1
-var run_speed = 10
-var acceleration = 6
-var decceleration = 4
-@export var angular_acceleration = 18
+var run_speed = 25
+var acceleration = 3
+var decceleration = 6
+@export var angular_acceleration = 9
 
 var jump_magnitude = 15
 var roll_magnitude = 20
@@ -38,7 +38,7 @@ var run_blendspace = "parameters/run/blend_position"
 @onready var animachine = $AnimationPlayer.get("paramaters/playback")
 @onready var bodyNode = $metarig/Skeleton3D
 @onready var lowPolyGunNode = get_node("../LowPolyGun")
-@onready var attachedLowPolyGunNode = get_node("metarig/Skeleton3D/BoneAttachment3D/LowPolyGun")
+#onready var attachedLowPolyGunNode = get_node("metarig/Skeleton3D/BoneAttachment3D/LowPolyGun")
 @onready var boneAttachment = get_node("metarig/Skeleton3D/BoneAttachment3D")
 @onready var globals = get_node("/root/Globals")
 
@@ -76,12 +76,11 @@ func _physics_process(delta):
 	#	acceleration = 3.5
 	#else:
 	acceleration = 5
-	
+	#PhysicsServer3D.area_set_param(get_viewport().find_world().space, PhysicsServer3D.AREA_PARAM_GRAVITY,0)
 	#if Input.is_action_pressed("aim"):
 	#	$Status/Aim.color = Color("ff6666")
 	#else:
 	#	$Status/Aim.color = Color("ffffff")
-	
 	
 	var h_rot = $CameraRoot/h.global_transform.basis.get_euler().y
 	
@@ -123,15 +122,23 @@ func _physics_process(delta):
 		bodyNode.rotation.y = $CameraRoot/h.rotation.y-rotation.y
 	else:
 		bodyNode.rotation.y = lerp_angle(bodyNode.rotation.y, atan2(direction.x, direction.z), delta * angular_acceleration)
+		$CollisionShape3D.rotation.y = lerp_angle($CollisionShape3D.rotation.y, atan2(direction.x, direction.z), delta * angular_acceleration)
+		# Limit to 0-360 degrees, prevents overflow
+		bodyNode.rotation.y = wrapf(bodyNode.rotation.y, 0.0, deg_to_rad(360.0))
+		$CollisionShape3D.rotation.y = wrapf($CollisionShape3D.rotation.y, 0.0, deg_to_rad(360.0))
 
-		#$PlayerCharacter.rotation.y = lerp_angle($PlayerCharacter.rotation.y, atan2(direction.x, direction.z) - rotation.y, delta * angular_acceleration)
-		
-	if !is_on_floor():
+	#print('is_on_floor(): ',is_on_floor())
+	#print('$RayCast3D.is_colliding():',$metarig/Skeleton3D/RayCast3D.is_colliding())
+	if !is_on_floor() and not $metarig/Skeleton3D/RayCast3D.is_colliding():
 		vertical_velocity -= gravity * delta
 	#if (vertical_velocity < -30):
 	#	vertical_velocity = -30
 	else:
+		pass#vertical_velocity = 0.15
+	if (Input.is_action_just_pressed("jump") and is_on_floor()):
 		#if vertical_velocity < -20:
 			#roll()
-		vertical_velocity = 0
+		vertical_velocity = 4
+		print('going in here')
+
 	#print('is_on_floor: ',is_on_floor)
