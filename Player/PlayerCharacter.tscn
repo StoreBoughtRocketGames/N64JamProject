@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://ce15vy7c6unkh"]
+[gd_scene load_steps=64 format=3 uid="uid://tg0m8y7hotdc"]
 
 [ext_resource type="Script" path="res://Player/PlayerCharacter.gd" id="1_puwqi"]
 [ext_resource type="Shader" path="res://Shaders/BilinearFilter.gdshader" id="2_4jr27"]
@@ -14,7 +14,7 @@
 [ext_resource type="Animation" uid="uid://dqwvx03dikjss" path="res://Player/Animations/Idle.res" id="10_83hfs"]
 [ext_resource type="Animation" uid="uid://xu16t84lx2jc" path="res://Player/Animations/IdleAim.res" id="11_038pp"]
 [ext_resource type="Animation" uid="uid://bslyxkxxpc7gc" path="res://Player/Animations/IdleShoot.res" id="12_3581f"]
-[ext_resource type="Animation" uid="uid://cl0xwe45twr8l" path="res://Player/Animations/InAir.res" id="13_6e0ir"]
+[ext_resource type="Animation" uid="uid://rq2nt4dlua2v" path="res://Player/Animations/InAir.res" id="13_6e0ir"]
 [ext_resource type="Animation" uid="uid://d2btgbv5xemqf" path="res://Player/Animations/JetPack.res" id="14_ow7q3"]
 [ext_resource type="Animation" uid="uid://dmhnw4rfhhm1r" path="res://Player/Animations/JetPackAim.res" id="15_kr13a"]
 [ext_resource type="Animation" uid="uid://cbq1avrldn7a" path="res://Player/Animations/JetPackShoot.res" id="16_wsrw0"]
@@ -23,7 +23,7 @@
 [ext_resource type="Animation" uid="uid://bfg2o208lid" path="res://Player/Animations/RunAim.res" id="19_n8rpw"]
 [ext_resource type="Animation" uid="uid://dm1k1ffjt0gwv" path="res://Player/Animations/RunBackward.res" id="20_acfkx"]
 [ext_resource type="Animation" uid="uid://db50m0a2cuf1p" path="res://Player/Animations/RunShoot.res" id="21_wlu88"]
-[ext_resource type="Script" path="res://Player/CameraCopy.gd" id="23_l0nur"]
+[ext_resource type="Script" path="res://Player/Camera.gd" id="24_pnc1m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5nfy"]
 render_priority = 0
@@ -402,7 +402,7 @@ filters = ["metarig/Skeleton3D:breast.L", "metarig/Skeleton3D:breast.R", "metari
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5jlbg"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oacwb"]
-graph_offset = Vector2(-169.531, 95.164)
+graph_offset = Vector2(-294.975, 46.4564)
 nodes/Blend2AimShoot/node = SubResource("AnimationNodeBlend2_y0ycj")
 nodes/Blend2AimShoot/position = Vector2(900, 300)
 nodes/BlendSpace1DAim/node = SubResource("AnimationNodeBlendSpace1D_trayf")
@@ -420,44 +420,48 @@ nodes/TimeScale/position = Vector2(880, 100)
 nodes/output/position = Vector2(1480, 100)
 node_connections = [&"output", 0, &"BlendUnarmedToArmed", &"Blend2AimShoot", 0, &"BlendSpace1DAim", &"Blend2AimShoot", 1, &"TimeScale 2", &"BlendUnarmedToArmed", 0, &"TimeScale", &"BlendUnarmedToArmed", 1, &"Blend2AimShoot", &"TimeScale", 0, &"BlendSpace1DIdleRun", &"TimeScale 2", 0, &"BlendSpace1DShoot"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p8bkn"]
-animation = &"InAir"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fdnk7"]
+animation = &"JetPack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hftfy"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_axvbc"]
+graph_offset = Vector2(-316, 58)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_fdnk7")
+nodes/Animation/position = Vector2(-20, 120)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m01uu"]
 animation = &"Jump"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4g2uv"]
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_iu625"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xxcmx"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b0ntc"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_br5xu"]
-states/InAir/node = SubResource("AnimationNodeAnimation_p8bkn")
-states/InAir/position = Vector2(537, 100)
-states/Jump/node = SubResource("AnimationNodeAnimation_hftfy")
-states/Jump/position = Vector2(363, 100)
-transitions = ["Jump", "InAir", SubResource("AnimationNodeStateMachineTransition_4g2uv"), "InAir", "End", SubResource("AnimationNodeStateMachineTransition_xxcmx"), "Start", "Jump", SubResource("AnimationNodeStateMachineTransition_b0ntc")]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_3l6sa"]
+graph_offset = Vector2(-665.16, 178.6)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_m01uu")
+nodes/Animation/position = Vector2(-300, 220)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_iu625")
+nodes/TimeScale/position = Vector2(120, 200)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ch8gf"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mvgxc"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ilgsu"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ayxq"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_03wgs"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1v1hh"]
+xfade_time = 0.1
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qgmhb"]
 states/BlendTreeIdleRun/node = SubResource("AnimationNodeBlendTree_oacwb")
-states/BlendTreeIdleRun/position = Vector2(431, 100)
+states/BlendTreeIdleRun/position = Vector2(432, 107)
 states/End/position = Vector2(1145, 100)
-states/StateMachine/node = SubResource("AnimationNodeStateMachine_br5xu")
-states/StateMachine/position = Vector2(757, 45)
-transitions = ["Start", "BlendTreeIdleRun", SubResource("AnimationNodeStateMachineTransition_ch8gf"), "BlendTreeIdleRun", "End", SubResource("AnimationNodeStateMachineTransition_mvgxc"), "BlendTreeIdleRun", "StateMachine", SubResource("AnimationNodeStateMachineTransition_ilgsu"), "StateMachine", "BlendTreeIdleRun", SubResource("AnimationNodeStateMachineTransition_03wgs")]
+states/InAir/node = SubResource("AnimationNodeBlendTree_axvbc")
+states/InAir/position = Vector2(886, 193)
+states/Jump/node = SubResource("AnimationNodeBlendTree_3l6sa")
+states/Jump/position = Vector2(604, 193)
+transitions = ["Start", "BlendTreeIdleRun", SubResource("AnimationNodeStateMachineTransition_ch8gf"), "BlendTreeIdleRun", "End", SubResource("AnimationNodeStateMachineTransition_mvgxc"), "BlendTreeIdleRun", "Jump", SubResource("AnimationNodeStateMachineTransition_4ayxq"), "Jump", "BlendTreeIdleRun", SubResource("AnimationNodeStateMachineTransition_1v1hh")]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_71hv7"]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_bqi5f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm3vn"]
 size = Vector3(0.558775, 0.643185, 0.340595)
@@ -471,6 +475,7 @@ margin = 0.2
 [node name="PlayerCharacter" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.150674, 0)
 script = ExtResource("1_puwqi")
+angular_acceleration = 7
 
 [node name="metarig" type="Node3D" parent="."]
 
@@ -711,7 +716,7 @@ parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position = 0.00281692
 parameters/BlendTreeIdleRun/BlendUnarmedToArmed/blend_amount = 0.0
 parameters/BlendTreeIdleRun/TimeScale/scale = 1.5
 "parameters/BlendTreeIdleRun/TimeScale 2/scale" = 1.5
-parameters/StateMachine/playback = SubResource("AnimationNodeStateMachinePlayback_bqi5f")
+parameters/Jump/TimeScale/scale = 1.35
 script = ExtResource("10_2w5kt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -728,7 +733,7 @@ shape = SubResource("BoxShape3D_up6o8")
 [node name="CameraRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.39427, 0)
 rotation_edit_mode = 1
-script = ExtResource("23_l0nur")
+script = ExtResource("24_pnc1m")
 
 [node name="h" type="Node3D" parent="CameraRoot"]
 
@@ -746,5 +751,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 current = true
 far = 300.0
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationTree" method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="AnimationTree" method="_on_animation_player_animation_started"]
+[connection signal="timeout" from="Timer" to="AnimationTree" method="_on_timer_timeout"]

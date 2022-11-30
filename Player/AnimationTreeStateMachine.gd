@@ -8,7 +8,7 @@ var player_blend_speed = 0
 var is_jumping: bool = false
 
 
-enum States {IDLERUN, SHOOT, AIM, ON_GROUND, IN_AIR}
+enum States {IDLERUN, SHOOT, AIM, ON_GROUND, IN_AIR, FALLING}
 
 var state : int = States.IDLERUN
 var previous_state : int = States.ON_GROUND
@@ -17,9 +17,11 @@ var allowTransition : bool = true
 @onready var globals = get_node("/root/Globals")
 
 func _on_timer_timeout():
-	timer.stop()
+	$"../Timer".stop()
 	allowTransition = true
-
+	#if (not globals.is_player_on_floor):
+	#	state = States.FALLING
+	#	playback.travel("InAir")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playback = get("parameters/playback") 
@@ -29,10 +31,10 @@ func _ready():
 	active = true
 	set("parameters/BlendTreeIdleRun/TimeScale/scale", 2.0)
 	# Wait timer to reset shoot animation
-	timer = Timer.new()
-	timer.wait_time = 0.75
-	add_child(timer)
-	timer.timeout.connect(_on_timer_timeout)
+	#timer = Timer.new()
+	#timer.wait_time = 0.75
+	#add_child(timer)
+	#timer.timeout.connect(_on_timer_timeout)
 
 func _input(event):
 	pass		
@@ -41,47 +43,59 @@ func set_state(_state):
 	#if (allowTransition):
 	#	_state = States.IDLERUN
 	# Check for IDLE state	
-	_state = set_idlerun_state(_state)
-	# Check for AIM state
-	_state = set_aim_state(_state)
+	
+	_state = set_jump_state(_state)
 
-	# Check for SHOOT state
-	_state = set_shoot_state(_state)
+	if (globals.is_player_on_floor):
+		_state = set_idlerun_state(_state)
+		# Check for AIM state
+		#_state = set_aim_state(_state)
+
+		# Check for SHOOT state
+		#_state = set_shoot_state(_state)
+		
+		
 	
 	return _state
 	
 func set_idlerun_state(_state):
 	if ((Input.is_action_pressed("forward") or Input.is_action_pressed("left") or \
 		Input.is_action_pressed("right")) and not Input.is_action_pressed("aim") and \
-		not Input.is_action_pressed("aim") and allowTransition):
+		not Input.is_action_pressed("aim")):
 		#print('Set idle!')
 		_state = States.IDLERUN
 	elif (not Input.is_action_pressed("forward") and not Input.is_action_pressed("left") and \
 		not Input.is_action_pressed("right") and not Input.is_action_pressed("aim") and \
-		not Input.is_action_pressed("shoot") and allowTransition):
+		not Input.is_action_pressed("shoot")):
 		#print('state:',_state)
 		_state = States.IDLERUN
 	
 	return _state
 
 func set_aim_state(_state):
-	if (Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot") and allowTransition):
+	if (Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot")):
 		_state = States.AIM
 	return _state
 
+func set_jump_state(_state):
+	if (Input.is_action_pressed("jump")):
+		#$"../Timer".start()
+		_state = States.IN_AIR
+		print('Setting jump!')
+	return _state
+	
 func set_shoot_state(_state):
-	if ( Input.is_action_pressed("shoot") or (Input.is_action_pressed("aim") and Input.is_action_pressed("shoot")) and allowTransition):
+	if ( Input.is_action_pressed("shoot") or (Input.is_action_pressed("aim") and Input.is_action_pressed("shoot"))):
 		#print('We are trying to shoot!')
 		_state = States.SHOOT
 		if (timer.is_stopped()):
 			timer.start()
-			allowTransition = false
 		#print('state: ',state)
 	return _state
 
-func set_animation(state):
+func set_animation(_state):
 	
-	clean_up(previous_state)
+	#clean_up(previous_state)
 	# Set player speed no matter what
 	set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",player_blend_speed)
 	set("parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position",player_blend_speed)
@@ -90,7 +104,10 @@ func set_animation(state):
 		set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",-1)
 		print('backward')
 	# Set animation
-	match state:
+	match _state:
+		States.IN_AIR:
+			playback.travel("Jump")
+			print('traveling to jump')
 		States.IDLERUN:
 			$"../AnimationPlayer".set_speed_scale(2)
 			playback.travel("BlendTreeIdleRun")
@@ -111,6 +128,7 @@ func set_animation(state):
 			set("parameters/BlendTreeIdleRun/BlendSpace1DShoot/blend_position",player_blend_speed)
 			set("parameters/BlendTreeIdleRun/Blend2AimShoot/blend_amount",1)
 			set("parameters/BlendTreeIdleRun/BlendUnarmedToArmed/blend_amount",1)
+
 	#print('state: ',state)
 	previous_state = state
 		
@@ -129,6 +147,7 @@ func _process(delta):
 	player_blend_speed = remap(globals.player_velocity.length(),-10,10,-1,1)
 	state = set_state(state)
 	set_animation(state)
+	#print('state: ',state)
 #		$"../AnimationPlayer".set_speed_scale(2)
 #		set("parameters/BlendTreeRun/BlendTree/IdleRun/blend_position",player_blend_speed)
 #		set("parameters/BlendTreeRun/BlendTree/BlendSpace1D/blend_position",player_blend_speed)

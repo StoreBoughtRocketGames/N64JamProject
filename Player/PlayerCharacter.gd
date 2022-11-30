@@ -126,8 +126,8 @@ func _physics_process(delta):
 		# Limit to 0-360 degrees, prevents overflow
 		bodyNode.rotation.y = wrapf(bodyNode.rotation.y, 0.0, deg_to_rad(360.0))
 		$CollisionShape3D.rotation.y = wrapf($CollisionShape3D.rotation.y, 0.0, deg_to_rad(360.0))
-
-	#print('is_on_floor(): ',is_on_floor())
+	globals.is_player_on_floor = is_on_floor()
+	#print('globals.is_player_on_floor: ',globals.is_player_on_floor)
 	#print('$RayCast3D.is_colliding():',$metarig/Skeleton3D/RayCast3D.is_colliding())
 	if !is_on_floor() and not $metarig/Skeleton3D/RayCast3D.is_colliding():
 		vertical_velocity -= gravity * delta
@@ -139,6 +139,5 @@ func _physics_process(delta):
 		#if vertical_velocity < -20:
 			#roll()
 		vertical_velocity = 4
-		print('going in here')
 
 	#print('is_on_floor: ',is_on_floor)

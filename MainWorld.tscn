@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://b40t5qb2t677t"]
+[gd_scene load_steps=18 format=3 uid="uid://d0wgqteso0jsv"]
 
 [ext_resource type="Script" path="res://Level.gd" id="1_r6uge"]
-[ext_resource type="PackedScene" uid="uid://ce15vy7c6unkh" path="res://Player/PlayerCharacter.tscn" id="2_0lmvs"]
+[ext_resource type="PackedScene" uid="uid://tg0m8y7hotdc" path="res://Player/PlayerCharacter.tscn" id="2_0lmvs"]
 [ext_resource type="PackedScene" uid="uid://bnqwr01lowp4o" path="res://Pickups/Gun/Model/LowPolyGun.scn" id="3_uekmc"]
 [ext_resource type="Shader" path="res://Shaders/gaussianBlur.gdshader" id="4_11lx2"]
-[ext_resource type="PackedScene" uid="uid://dy2ho6dautqhu" path="res://Models/AntPerson/AntPerson.scn" id="5_3gv3v"]
 [ext_resource type="Shader" path="res://Shaders/Dither.gdshader" id="5_u5yvp"]
 [ext_resource type="Texture2D" uid="uid://dxu8ebc6lw7xv" path="res://Shaders/psxdither.png" id="6_14hje"]
 [ext_resource type="PackedScene" uid="uid://dfkmnja0s4y6r" path="res://Models/Terrain/CaveSystem.scn" id="6_68huh"]
 [ext_resource type="Texture2D" uid="uid://bp4mkyu6qu5j1" path="res://Models/Terrain/starmap_2020_4k_print.jpg" id="6_ckb6m"]
-[ext_resource type="PackedScene" uid="uid://ble8b2iv3ubjs" path="res://Models/AntPerson/AntPerson2.glb" id="6_lqlfj"]
 [ext_resource type="PackedScene" uid="uid://yn4wf7sdptls" path="res://Models/Terrain/BlueWinterTreeBallLeaves/Tree.scn" id="7_sxwww"]
+[ext_resource type="PackedScene" uid="uid://dlkne8rhhabu5" path="res://Models/AntPerson/AntPerson.tscn" id="12_8w537"]
+[ext_resource type="PackedScene" path="res://Models/Spaceship/Spaceship.tscn" id="12_j8sp7"]
+[ext_resource type="Script" path="res://Sound/FmodManager.gd" id="13_rkroa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2k1v"]
 shader = ExtResource("4_11lx2")
@@ -20,8 +21,8 @@ shader_parameter/v = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd66e"]
 shader = ExtResource("5_u5yvp")
-shader_parameter/col_depth = 36.0
-shader_parameter/dither_banding = false
+shader_parameter/col_depth = 256.0
+shader_parameter/dither_banding = true
 shader_parameter/dither_tex = ExtResource("6_14hje")
 shader_parameter/enabled = true
 
@@ -59,12 +60,6 @@ script = ExtResource("1_r6uge")
 
 [node name="CaveSystem" parent="." instance=ExtResource("6_68huh")]
 
-[node name="AntPerson" parent="." instance=ExtResource("5_3gv3v")]
-transform = Transform3D(-1.69275, 0, -1.48226, 0, 2.25, 0, 1.48226, 0, -1.69275, 50.0976, -14.2304, 96.6539)
-
-[node name="AntPerson2" parent="." instance=ExtResource("6_lqlfj")]
-transform = Transform3D(-1.62309, 0, 1.16858, 0, 2, 0, -1.16858, 0, -1.62309, 57.8647, -14.2304, 96.6539)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0
 
@@ -76,11 +71,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 2
+stretch_shrink = 4
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/HBlur"]
 handle_input_locally = false
-size = Vector2i(576, 324)
+size = Vector2i(288, 162)
 render_target_update_mode = 4
 
 [node name="DitherBand" type="SubViewportContainer" parent="CanvasLayer/HBlur/SubViewport"]
@@ -103,11 +98,13 @@ script = ExtResource("1_r6uge")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level"]
 transform = Transform3D(-0.418438, 0.908245, 8.39265e-07, -0.610955, -0.281474, 0.739937, 0.672044, 0.309617, 0.672677, 0, -15.3699, -2.18834)
-light_energy = 0.5
-light_indirect_energy = 0.0
+light_energy = 0.25
+light_indirect_energy = 0.5
 light_volumetric_fog_energy = 0.0
-light_bake_mode = 1
+light_bake_mode = 0
 shadow_enabled = true
+shadow_opacity = 0.75
+shadow_blur = 10.0
 
 [node name="PlayerCharacter" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("2_0lmvs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.3864, -12.8387, 82.9713)
@@ -135,3 +132,12 @@ transform = Transform3D(-0.261751, 0, 0.965135, 0, 1, 0, -0.965135, 0, -0.261751
 
 [node name="Tree7" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("7_sxwww")]
 transform = Transform3D(-0.386293, 0, -0.922376, 0, 1, 0, 0.922376, 0, -0.386293, 183.942, -15.064, 75.313)
+
+[node name="Spaceship" parent="CanvasLayer/HBlur/SubViewport/DitherBand/SubViewport/Level" instance=ExtResource("12_j8sp7")]
+transform = Transform3D(-1.49797, 0, -0.0780334, -0.0019038, 1.49955, 0.0365464, 0.0780101, 0.0365959, -1.49752, 133.165, -12.374, 119.968)
+
+[node name="FmodManager" type="FmodManager" parent="CanvasLayer"]
+script = ExtResource("13_rkroa")
+
+[node name="AntPerson" parent="." instance=ExtResource("12_8w537")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 39.931, -15.7876, 87.0413)
