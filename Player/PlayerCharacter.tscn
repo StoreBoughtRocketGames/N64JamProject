@@ -694,7 +694,7 @@ transform = Transform3D(1, -1.90566e-18, -8.17452e-21, 1.90566e-18, 0.999963, 0.
 target_position = Vector3(0, -1.1, 0)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="metarig/Skeleton3D"]
-transform = Transform3D(-0.952434, -0.301944, 0.0412109, 0.301448, -0.953314, -0.017924, 0.0446989, -0.00464848, 0.99899, -1.00167, 2.53646, 0.0473176)
+transform = Transform3D(-0.952434, -0.301945, 0.0412116, 0.301448, -0.953314, -0.0179253, 0.0446999, -0.00464946, 0.99899, -1.00167, 2.53646, 0.0473164)
 bone_name = "hand.R"
 bone_idx = 14
 

@@ -1,0 +1,382 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v3.2.43",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "BeeHive"
+        },
+        {
+            "mesh" : 1,
+            "name" : "DoorFrame"
+        },
+        {
+            "mesh" : 2,
+            "name" : "Door"
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "BeeHouse",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.4000000059604645
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Door",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Handle",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 2
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Cube",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Cube.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Cube.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 1
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "indices" : 15,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "yellow-honeycomb-dark-dull-blurred-64x64",
+            "uri" : "yellow-honeycomb-dark-dull-blurred-64x64.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "door-blurred-64x64",
+            "uri" : "door-blurred-64x64.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "DoorHandle-blurred-32x32",
+            "uri" : "DoorHandle-blurred-32x32.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 902,
+            "max" : [
+                2.6867926120758057,
+                3.72365403175354,
+                2.824925661087036
+            ],
+            "min" : [
+                -2.626603841781616,
+                0.01702246442437172,
+                -2.824925661087036
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 902,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 902,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 4416,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 268,
+            "max" : [
+                2.616641044616699,
+                1.3448206186294556,
+                0.6146979928016663
+            ],
+            "min" : [
+                2.0318655967712402,
+                0.038486599922180176,
+                -0.6052610278129578
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 268,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 268,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 582,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 112,
+            "max" : [
+                2.361647844314575,
+                1.2837908267974854,
+                0.48673346638679504
+            ],
+            "min" : [
+                2.178378105163574,
+                0.09705796837806702,
+                -0.47688308358192444
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 112,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 112,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 204,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 106,
+            "max" : [
+                2.399491786956787,
+                0.8401455879211426,
+                -0.1763254702091217
+            ],
+            "min" : [
+                2.2707021236419678,
+                0.5852134823799133,
+                -0.4312574565410614
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 106,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 106,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5123,
+            "count" : 180,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 10824,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 10824,
+            "byteOffset" : 10824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 7216,
+            "byteOffset" : 21648
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 8832,
+            "byteOffset" : 28864
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3216,
+            "byteOffset" : 37696
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3216,
+            "byteOffset" : 40912
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2144,
+            "byteOffset" : 44128
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1164,
+            "byteOffset" : 46272
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1344,
+            "byteOffset" : 47436
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1344,
+            "byteOffset" : 48780
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 896,
+            "byteOffset" : 50124
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 408,
+            "byteOffset" : 51020
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1272,
+            "byteOffset" : 51428
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1272,
+            "byteOffset" : 52700
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 848,
+            "byteOffset" : 53972
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 360,
+            "byteOffset" : 54820
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 55180,
+            "uri" : "BeeHouse.bin"
+        }
+    ]
+}

@@ -9,5 +9,5 @@ func _ready():
 	load_bank("Sound/FMOD/Master.bank", FmodManager.NORMAL_LOAD);
 	load_bank("Sound/FMOD/Master.strings.bank", FmodManager.NORMAL_LOAD);
 
-	fmod_event = Fmod.create_event_instance("event:/MusicEvent", true, true)
+	fmod_event = create_event_instance("event:/MusicEvent", true, true)
 	print(fmod_event)
