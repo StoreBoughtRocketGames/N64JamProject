@@ -29,7 +29,7 @@ var decceleration = 6
 
 var jump_magnitude = 15
 var roll_magnitude = 20
-
+var is_button_pressed = false
 var sprint_toggle = true
 var sprinting = false
 var is_item_in_range = false
@@ -49,11 +49,17 @@ func _ready():
 	
 func _input(event):
 	if event is InputEvent:
+		if (Input.is_action_pressed("left") or Input.is_action_pressed("right") or \
+			Input.is_action_pressed("forward") or Input.is_action_pressed("backward")):
+			is_button_pressed = true
+		else:
+			is_button_pressed = false
 		if (Input.is_action_pressed("pickup") and is_item_in_range):
 			#attachedLowPolyGunNode.set_visible(true)
 			pick_up_item()
 			print('Yee haaa')
-			
+
+		
 func pick_up_item():
 	get_parent().remove_child(lowPolyGunNode)
 	boneAttachment.add_child(lowPolyGunNode)
@@ -61,9 +67,10 @@ func pick_up_item():
 	lowPolyGunNode.rotation = Vector3(deg_to_rad(-78.8), deg_to_rad(-12.5), deg_to_rad(173.6))
 
 
+
 func gun_in_pickup_range():
 	is_item_in_range = true
-	print('coming here')
+	#print('coming here')
 
 func gun_out_of_pickup_range():
 	is_item_in_range = false
@@ -133,8 +140,9 @@ func _physics_process(delta):
 		vertical_velocity -= gravity * delta
 	#if (vertical_velocity < -30):
 	#	vertical_velocity = -30
-	else:
-		pass#vertical_velocity = 0.15
+	elif velocity.length() < .1 and is_button_pressed:
+		vertical_velocity = 0.3
+		print('Adding vertical velocity!')
 	if (Input.is_action_just_pressed("jump") and is_on_floor()):
 		#if vertical_velocity < -20:
 			#roll()

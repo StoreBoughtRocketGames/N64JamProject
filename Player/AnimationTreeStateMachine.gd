@@ -81,7 +81,7 @@ func set_jump_state(_state):
 	if (Input.is_action_pressed("jump")):
 		#$"../Timer".start()
 		_state = States.IN_AIR
-		print('Setting jump!')
+		#print('Setting jump!')
 	return _state
 	
 func set_shoot_state(_state):
@@ -102,12 +102,12 @@ func set_animation(_state):
 	
 	if (Input.is_action_pressed("backward") and Input.is_action_pressed("aim")):
 		set("parameters/BlendTreeIdleRun/BlendSpace1DIdleRun/blend_position",-1)
-		print('backward')
+		#print('backward')
 	# Set animation
 	match _state:
 		States.IN_AIR:
 			playback.travel("Jump")
-			print('traveling to jump')
+			#print('traveling to jump')
 		States.IDLERUN:
 			$"../AnimationPlayer".set_speed_scale(2)
 			playback.travel("BlendTreeIdleRun")

@@ -463,8 +463,7 @@ transitions = ["Start", "BlendTreeIdleRun", SubResource("AnimationNodeStateMachi
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_71hv7"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mm3vn"]
-size = Vector3(0.558775, 0.643185, 0.340595)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qo8h7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_up6o8"]
 size = Vector3(5.52853, 5.8983, 6.01768)
@@ -694,7 +693,7 @@ transform = Transform3D(1, -1.90566e-18, -8.17452e-21, 1.90566e-18, 0.999963, 0.
 target_position = Vector3(0, -1.1, 0)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="metarig/Skeleton3D"]
-transform = Transform3D(-0.952434, -0.301945, 0.0412116, 0.301448, -0.953314, -0.0179253, 0.0446999, -0.00464946, 0.99899, -1.00167, 2.53646, 0.0473164)
+transform = Transform3D(-0.952434, -0.301944, 0.0412109, 0.301448, -0.953314, -0.017924, 0.0446989, -0.00464848, 0.99899, -1.00167, 2.53646, 0.0473176)
 bone_name = "hand.R"
 bone_idx = 14
 
@@ -720,8 +719,8 @@ parameters/Jump/TimeScale/scale = 1.35
 script = ExtResource("10_2w5kt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.78445, 0, 0, 0, 7.83135, 0, 0, 0, 2.74299, 0, 2.48483, 0.107417)
-shape = SubResource("BoxShape3D_mm3vn")
+transform = Transform3D(1.82513, -0.118397, 0, 0.042119, 5.13046, 0, 0, 0, 1.30781, 0, 2.41469, 0.107417)
+shape = SubResource("BoxShape3D_qo8h7")
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79909, 0)
