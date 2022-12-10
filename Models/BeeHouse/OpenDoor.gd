@@ -24,7 +24,7 @@ func _on_area_3d_body_entered(body):
 	if (body is CharacterBody3D):
 		is_door_allowed_open = true
 
-	print("body",body.name)
+	#print("body",body.name)
 	
 
 
