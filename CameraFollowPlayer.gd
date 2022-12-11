@@ -1,7 +1,7 @@
 extends Camera3D
 @export var offset_x: float = 114.946#75
 @export var offset_y: float = 75.736# 150
-@onready var playerNode = $"../../../../PlayerCharacter"
+@onready var playerNode = $"../../../../../PlayerCharacter"
 
 @export var X_REAL: float = 834.584#827.178
 @export var Y_REAL: float = 545.272#582.344

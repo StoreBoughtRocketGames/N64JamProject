@@ -30,6 +30,11 @@ config/icon="res://icon.svg"
 
 Globals="*res://Globals.gd"
 
+[display]
+
+window/size/viewport_width=1128
+window/size/viewport_height=634
+
 [fmod]
 
 config/auto_initialize=false

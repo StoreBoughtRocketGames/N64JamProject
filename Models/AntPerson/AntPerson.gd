@@ -5,7 +5,7 @@ var dialog_player
 var allow_dialog = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$AnimationPlayer.play("IdleDwarf") # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -14,7 +14,7 @@ func _process(delta):
 	
 func _input(event):
 	#print('get_overlapping_bodies(): ',len(get_overlapping_bodies()))
-	if event.is_action_pressed("Interact") and allow_dialog:
+	if Input.is_action_just_pressed("Interact") and allow_dialog:
 		#print('doing this!')
 		find_and_use_dialog()
 

@@ -8,6 +8,11 @@ var file
 # player dialog index
 var dialog_index = 0
 var is_dialog_active = false
+var is_dialog_over = false
+@onready var messageNode = $AspectRatioContainer/MarginContainer/NinePatchRect/MarginContainer/Message
+@onready var nameNode = $AspectRatioContainer/MarginContainer/NinePatchRect/Name
+@onready var antPersonNode = $".."
+var window_size
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#play_dialog() # Replace with function body.
@@ -21,26 +26,39 @@ func play_dialog():
 	dialog = load_dialog()
 	show()
 	is_dialog_active = true
-	$NinePatchRect/Name.text = dialog[0]['name']
-	$NinePatchRect/Message.text = dialog[0]['text']
+	
+	nameNode.text = dialog[0]['name']
+	messageNode.text = dialog[0]['text']
 
 
 func _input(event):
 	if not is_dialog_active:
 		return
-	if event.is_action_pressed("Interact"):
+	if Input.is_action_just_pressed("Interact"):
 		next_line()
 
 func next_line():
+	
 	dialog_index = dialog_index + 1
-	print('len(dialog):',len(dialog))
-	print('dialog_index: ',dialog_index)
+	print('antPersonNode.allow_dialog: ',antPersonNode.allow_dialog)
 	if (dialog_index >= len(dialog)):
+		dialog_index = 0
+		is_dialog_over = true
 		is_dialog_active = false
 		hide()
+		print('Returning')
 		return
-	$NinePatchRect/Name.text = dialog[dialog_index]['name']
-	$NinePatchRect/Message.text = dialog[dialog_index]['text']
+	elif (is_dialog_over == true and antPersonNode.allow_dialog):
+		dialog_index = 0
+		nameNode.text = dialog[dialog_index]['name']
+		messageNode.text = dialog[dialog_index]['text']
+		show()
+		return
+	print('len(dialog):',len(dialog))
+	print('dialog_index: ',dialog_index)
+
+	nameNode.text = dialog[dialog_index]['name']
+	messageNode.text = dialog[dialog_index]['text']
 	
 func hide_dialog():
 	hide()
@@ -60,7 +78,19 @@ func load_dialog():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	#if (is_dialog_active == false):
-		#print('hiding the dialog')
+	#if Input.is_action_just_pressed("toggle_fullscreen"):
+	#	window_size = DisplayServer.window_get_size()
+	#	print('dialog size: ',window_size)#Vector2(window_size.x / (4.0 * 4.0), window_size.y  /  (4.0 * 4.0)))
+		#if (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED):
+			#$AspectRatioContainer.set_position(Vector2(window_size.x / (2.0 * 4.0), window_size.y * 3.0 / (4.0 * 4.0) ) )
+			#$AspectRatioContainer.set_size(Vector2(window_size.x / (4.0 * 2.0), window_size.y  /  (2.0 * 4.0)) )
+#
+#		else:
+#			print('Coming in here')
+#			$AspectRatioContainer/NinePatchRect.set_position(Vector2(window_size.x / (4.0 * 4.0), window_size.y  /  (4.0 * 4.0)) )
+#			$AspectRatioContainer/NinePatchRect.set_size(Vector2(window_size.x / (4.0 * 4.0), window_size.y  /  (4.0 * 4.0)) )
+
+		#if (is_dialog_active == false):
+			#print('hiding the dialog')
 		
 

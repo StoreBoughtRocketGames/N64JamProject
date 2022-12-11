@@ -1,0 +1,10 @@
+[
+    {"name": "Phil", "text": "Well... you're a strange lookin fella."},
+    {"name": "Lorenz", "text": "My name's Lorenz, I'm looking for parts to fix my ship."},
+    {"name": "Lorenz", "text": "My ship crash landed here, and now I'm stranded unless I can fix it."},
+    {"name": "Phil", "text": "I see, well you came to the right place. I'm the salvager around here"},
+    {"name": "Phil", "text": "I'm sure I can scrape up some parts for you, if you can do something for me"},
+    {"name": "Phil", "text": "You see, the Whisps around here don't really like me too much"},
+    {"name": "Lorenz", "text": "Why is that?"},
+    {"name": "Phil", "text": "Let's just say they don't like what I do around here."}
+]

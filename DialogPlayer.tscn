@@ -7,37 +7,59 @@
 script = ExtResource("1_f7dep")
 dialog_file = "res://Dialog/jsons/Honeybee_Inn/Sid_Inn_Keeper.json"
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -259.0
-offset_top = -363.0
-offset_right = 285.0
-offset_bottom = -220.0
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer"]
+custom_minimum_size = Vector2(200, 40)
+offset_left = 150.0
+offset_right = 450.0
+offset_bottom = 100.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="AspectRatioContainer/MarginContainer"]
+custom_minimum_size = Vector2(300, 40)
+offset_right = 300.0
+offset_bottom = 100.0
 texture = ExtResource("2_w56qm")
 
-[node name="Message" type="RichTextLabel" parent="NinePatchRect"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 32.0
-offset_right = 531.0
-offset_bottom = 139.0
+[node name="Name" type="RichTextLabel" parent="AspectRatioContainer/MarginContainer/NinePatchRect"]
+custom_minimum_size = Vector2(100, 25)
+offset_left = 26.0
+offset_top = -1.0
+offset_right = 237.0
+offset_bottom = 27.0
 theme_override_font_sizes/normal_font_size = 20
-text = "Here is some text that is going to go in here when there is a box of things to write down, we will just write them here instead of writing them elsewhere. Does that make sense to put it all in this box or what bruh?"
-
-[node name="Name" type="RichTextLabel" parent="NinePatchRect"]
-layout_mode = 0
-offset_left = 28.0
-offset_top = 1.0
-offset_right = 441.0
-offset_bottom = 52.0
-theme_override_font_sizes/normal_font_size = 25
 text = "Name
 "
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/NinePatchRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 24.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message" type="RichTextLabel" parent="AspectRatioContainer/MarginContainer/NinePatchRect/MarginContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(175, 50)
+offset_right = 269.0
+offset_bottom = 71.0
+theme_override_font_sizes/normal_font_size = 15
+text = "Here is some text to go in the box so we can talk to eachother when we ant to do stuff or something"
+fit_content_height = true
